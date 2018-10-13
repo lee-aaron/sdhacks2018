@@ -68,7 +68,6 @@ class Login extends Component {
         user: null
       });
     });
-    this.attachLoginUI();
   }
 
   render() {
