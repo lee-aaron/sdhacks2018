@@ -45,9 +45,6 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar navbar-expand">
-          <div className="navbar-nav mr-auto">
-              <Sidebar onClick={this.openNavbar} />
-          </div>
           <div className="navbar-brand">
             {this.state.name}
           </div>
@@ -57,8 +54,11 @@ class App extends Component {
             </div>
           </div>
         </nav>
-
+        
         <p>{this.state.response}</p>
+        <div className="navbar-nav mr-auto">
+              <Sidebar/>
+          </div>
       </div>
     );
   }
