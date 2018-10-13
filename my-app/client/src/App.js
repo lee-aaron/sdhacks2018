@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
+<<<<<<< Updated upstream
 import Search from './components/Search/Search';
+=======
+import Search from './components/Search';
+import Sidebar from './components/Sidebar';
+>>>>>>> Stashed changes
 
 import './App.scss';
 import './bootstrap.css';
@@ -44,6 +49,9 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="navbar navbar-expand">
+          <div className="navbar-nav mr-auto">
+              <Sidebar onClick={this.openNavbar} />
+          </div>
           <div className="navbar-brand">
             {this.state.name}
           </div>
