@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+import logo from '../../logo.svg';
 import Search from '../Search/Search';
+import Sidebar from '../Sidebar/Sidebar';
+import MainTable from '../MainTable/MainTable';
+import Cards from '../Cards/Cards';
 
 class Home extends Component {
     constructor() {
@@ -25,9 +28,13 @@ class Home extends Component {
                 </nav>
                 
                 <p>{this.state.response}</p>
-                <div className="navbar-nav mr-auto">
-                    <Sidebar/>
+                <div class="body">
+                <Sidebar/>
+                <div class="information">
+                    <MainTable/>
+                    <Cards/>
                 </div>
+                </div> 
           </div>
         )
     }
