@@ -17,16 +17,26 @@ app.get('/api/hello', (req, res) => {
 	res.send({ express: 'Hello From Express' });
 });
 
-app.get('/api/firebase', (req, res) => {
-	var usersRef = ref.child('test');
-	usersRef.set({
+app.get('/api/firebase/write', (req, res) => {
+	var testRef = ref.child('test');
+	testRef.set({
 	  field1: "hello",
-	  field2: "world"
+	  field2: "from",
+	  field3: "firebase"
 	});
 
 	res.send({
 		status: 'success'
 	})
+});
+
+app.get('/api/firebase/read', (req, res) => {
+	var testRef = ref.child('test');
+	testRef.on('value', function(snapshot) {
+		res.send(snapshot.val());
+	}, function (errorObject) {
+		console.log("The read failed: " + errorObject.code);
+	});
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
