@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
+import Search from './components/Search';
 
 import './App.css';
+import './bootstrap.css';
 
 class App extends Component {
   state = {
-    message: ''
+    message: '',
+    response: '',
+    name: 'SDHacks2018',
+    query: '',
   };
 
   componentDidMount() {
@@ -19,6 +24,12 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  handleInputChange = event => {
+    this.setState({
+        query: event.target.value
+    })
+  }
+
   callApi = async () => {
     const response = await fetch('/api/firebase/read');
     const body = await response.json();
@@ -29,8 +40,20 @@ class App extends Component {
   };
 
   render() {
+
     return (
       <div className="App">
+        <nav className="navbar navbar-expand">
+          <div className="navbar-brand">
+            {this.state.name}
+          </div>
+          <div className="navbar-collapse">
+            <div className="navbar-nav ml-auto">
+              <Search onChange={this.handleInputChange} />
+            </div>
+          </div>
+        </nav>
+
         <p>{this.state.response}</p>
       </div>
     );

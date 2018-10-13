@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Setup Firebase
-var serviceAccount = require('./sdhacks2018-219306-firebase-adminsdk-sad6o-5df8cb9004.json');
+var serviceAccount = require('./sdhacks2018-219306-firebase-adminsdk-sad6o-4ff8e4edb4.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://sdhacks2018-219306.firebaseio.com'
