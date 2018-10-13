@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
-import Search from './Search';
+import Search from './components/Search';
 
 import './App.css';
 import './bootstrap.css';
