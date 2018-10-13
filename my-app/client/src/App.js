@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
-<<<<<<< Updated upstream
 import Search from './components/Search/Search';
-=======
-import Search from './components/Search';
-import Sidebar from './components/Sidebar';
->>>>>>> Stashed changes
+import Sidebar from './components/Sidebar/Sidebar';
 
 import './App.scss';
 import './bootstrap.css';
