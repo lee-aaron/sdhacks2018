@@ -13,13 +13,17 @@ class Sidebar extends Component {
             })
         }
         let new_active = this.state.active.slice();
+        if (new_active[index] != true ) {
+            new_active.fill(false);
+        }
         new_active[index] = !new_active[index];
         this.setState({active: new_active});
     }
 
     unique_links(path, text, index) {
         return (
-            <a className={this.state.active[index] ? "active" : "not_active"} key={path} href={path} onClick={this.isActive.bind(this, index)}>{text}</a>
+            <a className={this.state.active[index] ? "active" : "not_active"} key={path} href={path} 
+                onClick={this.isActive.bind(this, index)}>{text}</a>
         )
     }
 
