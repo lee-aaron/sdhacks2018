@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
+import Search from './Search';
 
 import './App.css';
+import './bootstrap.css';
 
 class App extends Component {
   state = {
-    response: ''
+    response: '',
+    name: 'SDHacks2018',
+    query: '',
   };
 
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
       .catch(err => console.log(err));
+  }
+
+  handleInputChange = event => {
+    this.setState({
+        query: event.target.value
+    })
   }
 
   callApi = async () => {
@@ -25,13 +35,24 @@ class App extends Component {
   };
 
   render() {
+
     return (
       <div className="App">
-        <header className="App-header">
+        {/*<header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
-        </header>
+        </header>*/}
         <p className="App-intro">{this.state.response}</p>
+        <nav className="navbar navbar-expand">
+          <div className="navbar-brand">
+            {this.state.name}
+          </div>
+          <div className="navbar-collapse">
+            <div className="navbar-nav ml-auto">
+              <Search onChange={this.handleInputChange} />
+            </div>
+          </div>
+        </nav>
       </div>
     );
   }
