@@ -1,65 +1,21 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import logo from './logo.svg';
-import Search from './components/Search/Search';
-import Sidebar from './components/Sidebar/Sidebar';
+import Home from './components/Home/Home';
+import Login from './components/Login/Login';
 
 import './App.scss';
 import './bootstrap.css';
 
 class App extends Component {
-  state = {
-    message: '',
-    response: '',
-    name: 'SDHacks2018',
-    query: '',
-  };
-
-  componentDidMount() {
-    this.callApi()
-      .then((res) => {
-        console.log(res);
-        console.log(res.express);
-        this.setState({ response: `${res.field1} ${res.field2} ${res.field3 }`});
-      })
-      .catch(err => console.log(err));
-  }
-
-  handleInputChange = event => {
-    this.setState({
-        query: event.target.value
-    })
-  }
-
-  callApi = async () => {
-    const response = await fetch('/api/firebase/read');
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
   render() {
-
     return (
-      <div className="App">
-        <nav className="navbar navbar-expand">
-          <div className="navbar-nav mr-auto">
-              <Sidebar onClick={this.openNavbar} />
-          </div>
-          <div className="navbar-brand">
-            {this.state.name}
-          </div>
-          <div className="navbar-collapse">
-            <div className="navbar-nav ml-auto">
-              <Search onChange={this.handleInputChange} />
-            </div>
-          </div>
-        </nav>
-
-        <p>{this.state.response}</p>
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+        </div>
+      </Router>
     );
   }
 }

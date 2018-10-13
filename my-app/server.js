@@ -13,6 +13,37 @@ admin.initializeApp({
 var db = admin.database();
 var ref = db.ref('/');
 
+app.get('/', (req, res) => {
+	res.send("The backend works");
+});
+
+/*************
+ * User
+ */
+// Get user
+app.get('/api/user', (req, res) => {
+	res.send('Get request');
+});
+
+// Create user
+app.post('/api/user', (req, res) => {
+	admin.auth().createUser({
+		email: req.body.email,
+		password: req.body.password,
+		displayName: req.body.displayName || "Anonymous",
+		photoURL: req.user.photoURL || null,
+	})
+	.then(function(userRecord) {
+		// See the UserRecord reference doc for the contents of userRecord.
+		console.log("Successfully created new user:", userRecord.uid);
+	})
+	.catch(function(error) {
+		console.log("Error creating new user:", error);
+	});
+});
+
+
+
 app.get('/api/hello', (req, res) => {
 	res.send({ express: 'Hello From Express' });
 });
