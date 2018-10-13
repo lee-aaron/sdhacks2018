@@ -4,7 +4,7 @@ class Search extends Component {
 
     render() {
         return (
-            <form>
+            <form class="search">
                 <input
                     type="text"
                     placeholder = "Search"
