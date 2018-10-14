@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 function create_row(headers) {
 
     return (
-        <div className="column" key={headers}>
+        <div className="column_two" key={headers}>
             {headers}
         </div>
     )
