@@ -15,7 +15,7 @@ class Sidebar extends Component {
             })
         }
         let new_active = this.state.active.slice();
-        if (new_active[index] != true ) {
+        if (new_active[index] !== true ) {
             new_active.fill(false);
         }
         new_active[index] = !new_active[index];
