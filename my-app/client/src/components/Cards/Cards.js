@@ -1,9 +1,9 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
+import Popup from 'reactjs-popup';
 
 class Cards extends Component {
     constructor(props){
         super(props);
-        console.log(this.props);
         this.state = {
             SampleContent: this.props.SampleContent,
         };
@@ -16,7 +16,9 @@ class Cards extends Component {
                     {this.state.SampleContent.name}
                 </div>
                 <div className="column">
-                    {this.state.SampleContent.steps}
+                    <Popup trigger={<div>{this.state.SampleContent.steps}</div>} modal> 
+                        "Fake Info"
+                    </Popup>
                 </div>
                 <div className="column">
                     hello
