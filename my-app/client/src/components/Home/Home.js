@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import update from 'react-addons-update';
 import logo from '../../logo.jpg';
 import Search from '../Search/Search';
 import Sidebar from '../Sidebar/Sidebar';
@@ -6,7 +7,7 @@ import MainTable from '../MainTable/MainTable';
 import Cards from '../Cards/Cards';
 import Add from '../Add/Add';
 
-function add_row_to_application(object, updateList) {
+function add_row_to_application(object, updateList, index) {
 
     return (
         <Cards key={object.name} content={{
@@ -14,7 +15,7 @@ function add_row_to_application(object, updateList) {
             steps: object.steps,
             accepted: object.accepted,
             rejected: object.rejected,
-        }} update={updateList.bind(this)} />
+        }} update={updateList} pos={index} />
     )
 }
 
@@ -140,15 +141,22 @@ class Home extends Component {
     }
 
     handleInputChange = event => {
+        console.log(this.state.apps_list);
         this.setState({
-            query: event.target.value
+            query: event.target.value,
+            apps_list: this.state.apps_list
         });
+        console.log(this.state.apps_list);
     }
 
-    updateList(list) {
+    updateList(updated_row, index) {
+        console.log(updated_row);
+        let new_list = this.state.apps_list.slice();
+        new_list[index] = updated_row;
         this.setState({
+            apps_list: new_list
         });
-        console.log(list);
+        console.log(this.state.apps_list);
     }
 
     render() {
@@ -172,7 +180,7 @@ class Home extends Component {
                     <MainTable/>
                     {this.state.apps_list.filter((app) => {
                         return app.name.toLowerCase().startsWith(this.state.query.toLowerCase()) !== false;    
-                    }).map((item) => add_row_to_application(item, this.updateList))}
+                    }).map((item, index) => add_row_to_application(item, this.updateList.bind(this), index))}
                     <Add />
                 </div>
                 </div> 
