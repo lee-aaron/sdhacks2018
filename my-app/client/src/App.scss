@@ -1,4 +1,7 @@
 @import 'components/Search/Search.scss';
+@import 'components/Sidebar/Sidebar.scss';
+@import 'components/MainTable/MainTable.scss';
+@import 'components/Cards/Cards.scss';
 
 .App {
   text-align: center;
@@ -31,4 +34,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.information{
+  margin-left: 200px;
 }

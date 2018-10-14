@@ -4,7 +4,7 @@ class Search extends Component {
 
     render() {
         return (
-            <form class="search">
+            <form>
                 <input
                     type="text"
                     placeholder = "Search"
@@ -16,4 +16,4 @@ class Search extends Component {
 
 }
 
-export default Search
+export default Search;
