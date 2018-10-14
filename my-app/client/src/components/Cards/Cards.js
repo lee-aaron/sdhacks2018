@@ -14,13 +14,13 @@ class Cards extends Component {
     render() {
         return (
             <div className="Row">
-                <div class="column">
+                <div className="column">
                     SampleContent.name
                 </div>
-                <div class="column">
+                <div className="column">
                     SampleContent.steps
                 </div>
-                <div class="column">
+                <div className="column">
                     hello
                 </div>
             </div>

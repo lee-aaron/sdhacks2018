@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 function create_row(headers) {
 
     return (
-        <th key={headers}>
+        <div className="column" key={headers}>
             {headers}
-        </th>
+        </div>
     )
 }
 
@@ -20,12 +20,8 @@ class MainTable extends Component {
         ].map((entry) => create_row(entry));
 
         return (
-            <div className="table">
-                <table>
-                    <thead>
-                        <tr>{ tableHeaders }</tr>
-                    </thead>
-                </table>
+            <div className="headers Row">
+                { tableHeaders }
             </div>
         )
     }
