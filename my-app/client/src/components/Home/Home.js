@@ -32,7 +32,7 @@ class Home extends Component {
                 <Sidebar/>
                 <div class="information">
                     <MainTable/>
-                    <Cards/>
+                    <Cards SampleContent={{name:'Google', steps:'Phone Screen'}}/>
                 </div>
                 </div> 
           </div>

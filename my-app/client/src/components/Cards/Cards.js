@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
-
-const SampleContent = {
-    name:'Google',
-    steps:'Phone Screen',
-  };
+import React, { Component } from 'react'; 
 
 class Cards extends Component {
     constructor(props){
         super(props);
         console.log(this.props);
+        this.state = {
+            SampleContent: this.props.SampleContent,
+        };
     }
 
     render() {
         return (
             <div className="Row">
                 <div className="column">
-                    SampleContent.name
+                    {this.state.SampleContent.name}
                 </div>
                 <div className="column">
-                    SampleContent.steps
+                    {this.state.SampleContent.steps}
                 </div>
                 <div className="column">
                     hello
