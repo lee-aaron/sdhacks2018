@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 
 function create_popup(entries) {
     return (
-        <Popup key={entries.name} trigger={<div style={{ display: "inline-block", padding: "5px"}}>{entries.name}</div>} modal> 
+        <Popup key={entries.name} trigger={<div style={{ display: "inline-block", padding: "5px", border: "1px solid black"}}>{entries.name}</div>} modal> 
             <div style={{ display: "inline-block" }}>{ entries.name }</div>
             <div style={{ display: "inline-block", float: "right" }}>{ entries.date }</div>
             <div>{ entries.description }</div>
