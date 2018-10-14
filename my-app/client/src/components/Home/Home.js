@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import update from 'react-addons-update';
 import logo from '../../logo.jpg';
 import Search from '../Search/Search';
 import Sidebar from '../Sidebar/Sidebar';
@@ -68,7 +67,7 @@ class Home extends Component {
                         }
                     ],
                     accepted: false,
-                    rejected: true
+                    rejected: false
                 },
                 {
                     name:'AirBnB', 
@@ -141,22 +140,18 @@ class Home extends Component {
     }
 
     handleInputChange = event => {
-        console.log(this.state.apps_list);
         this.setState({
             query: event.target.value,
             apps_list: this.state.apps_list
         });
-        console.log(this.state.apps_list);
     }
 
     updateList(updated_row, index) {
-        console.log(updated_row);
         let new_list = this.state.apps_list.slice();
         new_list[index] = updated_row;
         this.setState({
             apps_list: new_list
         });
-        console.log(this.state.apps_list);
     }
 
     render() {
