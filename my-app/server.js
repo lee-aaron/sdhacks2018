@@ -1,5 +1,6 @@
 const express = require('express');
 const admin = require('firebase-admin');
+var bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -13,61 +14,77 @@ admin.initializeApp({
 var db = admin.database();
 var ref = db.ref('/');
 
-app.get('/', (req, res) => {
-	res.send("The backend works");
-});
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
-/*************
- * User
- */
-// Get user
-app.get('/api/user', (req, res) => {
-	res.send('Get request');
-});
-
-// Create user
-app.post('/api/user', (req, res) => {
-	admin.auth().createUser({
-		email: req.body.email,
-		password: req.body.password,
-		displayName: req.body.displayName || "Anonymous",
-		photoURL: req.user.photoURL || null,
-	})
-	.then(function(userRecord) {
-		// See the UserRecord reference doc for the contents of userRecord.
-		console.log("Successfully created new user:", userRecord.uid);
-	})
-	.catch(function(error) {
-		console.log("Error creating new user:", error);
-	});
-});
-
-
-
-app.get('/api/hello', (req, res) => {
-	res.send({ express: 'Hello From Express' });
-});
-
-app.get('/api/firebase/write', (req, res) => {
-	var testRef = ref.child('test');
-	testRef.set({
-	  field1: "hello",
-	  field2: "from",
-	  field3: "firebase"
-	});
-
-	res.send({
-		status: 'success'
-	})
-});
-
-app.get('/api/firebase/read', (req, res) => {
-	var testRef = ref.child('test');
-	testRef.on('value', function(snapshot) {
+// COMPANY
+app.get('/api/company', (req, res) => {
+	var user_id = req.query.user_id;
+	var companyRef = ref.child(`users/${user_id}/company_status`);
+	companyRef.on('value', (snapshot) => {
 		res.send(snapshot.val());
-	}, function (errorObject) {
-		console.log("The read failed: " + errorObject.code);
+	}, (err) => {
+		console.log("The read failed: " + err.code);
 	});
+});
+
+app.post('/api/company', (req, res) => {
+	var company_id = req.body.company_id;
+	var user_id = req.body.user_id;
+	var companyRef = ref.child(`users/${user_id}/company_status`);
+	var newCompanyRef = companyRef.push();
+	newCompanyRef.set({
+		  id: company_id,
+		  accepted: false,
+		  rejected: false
+	});
+
+	res.send({ status: 200 });
+});
+
+// STEP
+app.post('/api/steps', (req, res) => {
+	var date = req.body.date;
+	var name = req.body.name;
+	var company_id = req.body.company_id;
+	var user_id = req.body.user_id;
+
+	var stepRef = ref.child(`users/${user_id}/company_status/${company_id}/steps`);
+	var newStepRef = stepRef.push();
+	newStepRef.set({
+		date,
+		name
+	});
+
+	res.send({ status: 200 });
+});
+
+// ACCEPTED
+app.post('/api/accepted', (req, res) => {
+	var company_id = req.body.company_id;
+	var user_id = req.body.user_id;
+
+	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
+	companyRef.update({
+		accepted: true,
+		rejected: false
+	});
+
+	res.send({ status: 200 });
+});
+
+// REJECTED
+app.post('/api/rejected', (req, res) => {
+	var company_id = req.body.company_id;
+	var user_id = req.body.user_id;
+
+	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
+	companyRef.update({
+		rejected: true,
+		accepted: false
+	});
+
+	res.send({ status: 200 });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
