@@ -25,37 +25,47 @@ class Cards extends Component {
     changeReject() {
         this.setState({
             content: {
-                rejected: !this.props.content.rejected,
-                accepted: this.props.content.accepted
+                name: this.props.content.name,
+                steps: this.props.content.steps,
+                rejected: !this.state.content.rejected,
+                accepted: this.state.content.accepted
             }
         });
+        this.state.content.rejected = !this.state.content.rejected;
         if ( this.state.content.accepted ) {
             this.setState({
                 content: {
+                    name: this.state.content.name,
+                    steps: this.state.content.steps,
                     rejected: !this.state.content.rejected,
                     accepted: !this.state.content.accepted
                 }
             });
         }
-        this.props.update = this.state.content;
+        this.props.update(this.state.content, this.props.pos);
     }
 
     changeAccept() {
         this.setState({
             content: {
+                name: this.props.content.name,
+                steps: this.props.content.steps,
                 accepted: !this.state.content.accepted,
                 rejected: this.state.content.rejected
             }
         });
+        this.state.content.accepted = !this.state.content.accepted;
         if ( this.state.content.rejected ) {
             this.setState({
                 content: {
+                    name: this.props.content.name,
+                    steps: this.props.content.steps,
                     rejected: !this.state.content.rejected,
                     accepted: !this.state.content.accepted
                 }
             });
         }
-        this.props.update = this.state.content;
+        this.props.update(this.state.content, this.props.pos);
     }
 
     render() {
