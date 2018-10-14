@@ -16,7 +16,7 @@
         background-color: teal;
         color: white;
     }
-    a:hover {
+    a:hover:not(.active) {
         background-color: #555;
         color: white;
     }
