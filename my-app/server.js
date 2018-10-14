@@ -27,17 +27,23 @@ app.get('/api/company', (req, res) => {
 		console.log("The read failed: " + err.code);
 	});
 });
-
 app.post('/api/company', (req, res) => {
-	var company_id = req.body.company_id;
 	var user_id = req.body.user_id;
 	var companyRef = ref.child(`users/${user_id}/company_status`);
 	var newCompanyRef = companyRef.push();
 	newCompanyRef.set({
-		  id: company_id,
 		  accepted: false,
 		  rejected: false
 	});
+
+	res.send({ status: 200 });
+});
+app.delete('/api/company', (req, res) => {
+	var company_id = req.query.company_id;
+	var user_id = req.query.user_id;
+
+	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
+	companyRef.remove();
 
 	res.send({ status: 200 });
 });
@@ -46,6 +52,7 @@ app.post('/api/company', (req, res) => {
 app.post('/api/steps', (req, res) => {
 	var date = req.body.date;
 	var name = req.body.name;
+	var description = req.body.description;
 	var company_id = req.body.company_id;
 	var user_id = req.body.user_id;
 
@@ -53,8 +60,19 @@ app.post('/api/steps', (req, res) => {
 	var newStepRef = stepRef.push();
 	newStepRef.set({
 		date,
-		name
+		name,
+		description
 	});
+
+	res.send({ status: 200 });
+});
+app.delete('/api/steps', (req, res) => {
+	var company_id = req.query.company_id;
+	var user_id = req.query.user_id;
+	var step_id = req.query.step_id;
+
+	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}/steps/${step_id}`);
+	companyRef.remove();
 
 	res.send({ status: 200 });
 });
