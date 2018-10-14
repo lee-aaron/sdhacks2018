@@ -8,7 +8,7 @@ import Add from '../Add/Add';
 
 function add_row_to_application(object) {
     return (
-        <Cards SampleContent={{
+        <Cards key={object.name} SampleContent={{
             name: object.name, 
             steps: object.steps,
         }}/>
@@ -115,7 +115,7 @@ class Home extends Component {
                 ]
             }
         ].filter((app) => {
-            return app.name.toLowerCase().search(this.state.query.toLowerCase()) !== -1;
+            return app.name.toLowerCase().startsWith(this.state.query.toLowerCase()) !== false;
         }).map((app) =>
             add_row_to_application(app)  
         );
