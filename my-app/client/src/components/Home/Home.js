@@ -113,12 +113,30 @@ class Home extends Component {
                         description: "Fill Description"
                     }
                 ]
+            },
+            {
+                name:'Google - Software Engineer Intern BS', 
+                steps: [
+                    {
+                        name: "Phone Interview",
+                        date: "10-12-18",
+                        description: "I think the phone interview went well but then I missed the KDT problem"
+                    },
+                    {
+                        name: "Technical Interview",
+                        date: "10-25-18",
+                        description: "I missed the Two Sums problem on Leetcode"
+                    },
+                    {
+                        name: "Dummy",
+                        date: "Dummy Date",
+                        description: "Fill Description"
+                    }
+                ]
             }
         ].filter((app) => {
             return app.name.toLowerCase().startsWith(this.state.query.toLowerCase()) !== false;
-        }).map((app) =>
-            add_row_to_application(app)  
-        );
+        }).map((app) => add_row_to_application(app));
 
         return (
             <div className="home">
