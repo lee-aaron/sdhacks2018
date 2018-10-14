@@ -6,12 +6,15 @@ import MainTable from '../MainTable/MainTable';
 import Cards from '../Cards/Cards';
 import Add from '../Add/Add';
 
-function add_row_to_application(object) {
+function add_row_to_application(object, updateList) {
+
     return (
-        <Cards key={object.name} SampleContent={{
+        <Cards key={object.name} content={{
             name: object.name, 
             steps: object.steps,
-        }}/>
+            accepted: object.accepted,
+            rejected: object.rejected,
+        }} update={updateList.bind(this)} />
     )
 }
 
@@ -21,7 +24,118 @@ class Home extends Component {
         this.state = {
             name: 'hello',
             query: '',
-            apps_list: []
+            apps_list: [
+                {
+                    name:'Google', 
+                    steps: [
+                        {
+                            name: "Phone Interview",
+                            date: "10-12-18",
+                            description: "I think the phone interview went well but then I missed the KDT problem"
+                        },
+                        {
+                            name: "Technical Interview",
+                            date: "10-25-18",
+                            description: "I missed the Two Sums problem on Leetcode"
+                        },
+                        {
+                            name: "Dummy",
+                            date: "Dummy Date",
+                            description: "Fill Description"
+                        }
+                    ],
+                    accepted: true,
+                    rejected: false
+                },
+                {
+                    name:'Apple', 
+                    steps: [
+                        {
+                            name: "Phone Interview",
+                            date: "10-12-18",
+                            description: "I think the phone interview went well but then I missed the KDT problem"
+                        },
+                        {
+                            name: "Technical Interview",
+                            date: "10-25-18",
+                            description: "I missed the Two Sums problem on Leetcode"
+                        },
+                        {
+                            name: "Dummy",
+                            date: "Dummy Date",
+                            description: "Fill Description"
+                        }
+                    ],
+                    accepted: false,
+                    rejected: true
+                },
+                {
+                    name:'AirBnB', 
+                    steps: [
+                        {
+                            name: "Phone Interview",
+                            date: "10-12-18",
+                            description: "I think the phone interview went well but then I missed the KDT problem"
+                        },
+                        {
+                            name: "Technical Interview",
+                            date: "10-25-18",
+                            description: "I missed the Two Sums problem on Leetcode"
+                        },
+                        {
+                            name: "Dummy",
+                            date: "Dummy Date",
+                            description: "Fill Description"
+                        }
+                    ],
+                    accepted: false,
+                    rejected: false
+                },
+                {
+                    name:'Lyft', 
+                    steps: [
+                        {
+                            name: "Phone Interview",
+                            date: "10-12-18",
+                            description: "I think the phone interview went well but then I missed the KDT problem"
+                        },
+                        {
+                            name: "Technical Interview",
+                            date: "10-25-18",
+                            description: "I missed the Two Sums problem on Leetcode"
+                        },
+                        {
+                            name: "Dummy",
+                            date: "Dummy Date",
+                            description: "Fill Description"
+                        }
+                    ],
+                    accepted: false,
+                    rejected: false
+                },
+                {
+                    name:'Google - Software Engineer Intern BS', 
+                    steps: [
+                        {
+                            name: "Phone Interview",
+                            date: "10-12-18",
+                            description: "I think the phone interview went well but then I missed the KDT problem"
+                        },
+                        {
+                            name: "Technical Interview",
+                            date: "10-25-18",
+                            description: "I missed the Two Sums problem on Leetcode"
+                        },
+                        {
+                            name: "Dummy",
+                            date: "Dummy Date",
+                            description: "Fill Description"
+                        }
+                    ],
+                    accepted: false,
+                    rejected: false
+                }
+            ]
         }
     }
 
@@ -31,112 +145,13 @@ class Home extends Component {
         });
     }
 
-    render() {
+    updateList(list) {
+        this.setState({
+        });
+        console.log(list);
+    }
 
-        this.state.apps_list = [
-            {
-                name:'Google', 
-                steps: [
-                    {
-                        name: "Phone Interview",
-                        date: "10-12-18",
-                        description: "I think the phone interview went well but then I missed the KDT problem"
-                    },
-                    {
-                        name: "Technical Interview",
-                        date: "10-25-18",
-                        description: "I missed the Two Sums problem on Leetcode"
-                    },
-                    {
-                        name: "Dummy",
-                        date: "Dummy Date",
-                        description: "Fill Description"
-                    }
-                ]
-            },
-            {
-                name:'Apple', 
-                steps: [
-                    {
-                        name: "Phone Interview",
-                        date: "10-12-18",
-                        description: "I think the phone interview went well but then I missed the KDT problem"
-                    },
-                    {
-                        name: "Technical Interview",
-                        date: "10-25-18",
-                        description: "I missed the Two Sums problem on Leetcode"
-                    },
-                    {
-                        name: "Dummy",
-                        date: "Dummy Date",
-                        description: "Fill Description"
-                    }
-                ]                
-            },
-            {
-                name:'AirBnB', 
-                steps: [
-                    {
-                        name: "Phone Interview",
-                        date: "10-12-18",
-                        description: "I think the phone interview went well but then I missed the KDT problem"
-                    },
-                    {
-                        name: "Technical Interview",
-                        date: "10-25-18",
-                        description: "I missed the Two Sums problem on Leetcode"
-                    },
-                    {
-                        name: "Dummy",
-                        date: "Dummy Date",
-                        description: "Fill Description"
-                    }
-                ]          
-            },
-            {
-                name:'Lyft', 
-                steps: [
-                    {
-                        name: "Phone Interview",
-                        date: "10-12-18",
-                        description: "I think the phone interview went well but then I missed the KDT problem"
-                    },
-                    {
-                        name: "Technical Interview",
-                        date: "10-25-18",
-                        description: "I missed the Two Sums problem on Leetcode"
-                    },
-                    {
-                        name: "Dummy",
-                        date: "Dummy Date",
-                        description: "Fill Description"
-                    }
-                ]
-            },
-            {
-                name:'Google - Software Engineer Intern BS', 
-                steps: [
-                    {
-                        name: "Phone Interview",
-                        date: "10-12-18",
-                        description: "I think the phone interview went well but then I missed the KDT problem"
-                    },
-                    {
-                        name: "Technical Interview",
-                        date: "10-25-18",
-                        description: "I missed the Two Sums problem on Leetcode"
-                    },
-                    {
-                        name: "Dummy",
-                        date: "Dummy Date",
-                        description: "Fill Description"
-                    }
-                ]
-            }
-        ].filter((app) => {
-            return app.name.toLowerCase().startsWith(this.state.query.toLowerCase()) !== false;
-        }).map((app) => add_row_to_application(app));
+    render() {
 
         return (
             <div className="home">
@@ -155,7 +170,9 @@ class Home extends Component {
                 <Sidebar/>
                 <div className="information">
                     <MainTable/>
-                    {this.state.apps_list}
+                    {this.state.apps_list.filter((app) => {
+                        return app.name.toLowerCase().startsWith(this.state.query.toLowerCase()) !== false;    
+                    }).map((item) => add_row_to_application(item, this.updateList))}
                     <Add />
                 </div>
                 </div> 
