@@ -17,11 +17,19 @@ var ref = db.ref('/');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+	console.log('Got request', req.path, req.method);
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+	res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	return next();
+});
+
 // COMPANY
 app.get('/api/company', (req, res) => {
 	var user_id = req.query.user_id;
 	var companyRef = ref.child(`users/${user_id}/company_status`);
-	companyRef.on('value', (snapshot) => {
+	companyRef.once('value', (snapshot) => {
 		res.send(snapshot.val());
 	}, (err) => {
 		console.log("The read failed: " + err.code);
@@ -33,7 +41,8 @@ app.post('/api/company', (req, res) => {
 	var newCompanyRef = companyRef.push();
 	newCompanyRef.set({
 		  accepted: false,
-		  rejected: false
+		  rejected: false,
+		  name: req.body.name
 	});
 
 	res.send({ status: 200 });
@@ -41,7 +50,6 @@ app.post('/api/company', (req, res) => {
 app.delete('/api/company', (req, res) => {
 	var company_id = req.query.company_id;
 	var user_id = req.query.user_id;
-
 	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
 	companyRef.remove();
 
@@ -77,31 +85,16 @@ app.delete('/api/steps', (req, res) => {
 	res.send({ status: 200 });
 });
 
-// ACCEPTED
-app.post('/api/accepted', (req, res) => {
+// ACCEPTED or REJECTED
+app.post('/api/offer', (req, res) => {
 	var company_id = req.body.company_id;
 	var user_id = req.body.user_id;
 
 	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
 	companyRef.update({
-		accepted: true,
-		rejected: false
+		accepted: req.body.accepted,
+		rejected: req.body.rejected
 	});
-
-	res.send({ status: 200 });
-});
-
-// REJECTED
-app.post('/api/rejected', (req, res) => {
-	var company_id = req.body.company_id;
-	var user_id = req.body.user_id;
-
-	var companyRef = ref.child(`users/${user_id}/company_status/${company_id}`);
-	companyRef.update({
-		rejected: true,
-		accepted: false
-	});
-
 	res.send({ status: 200 });
 });
 

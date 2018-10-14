@@ -1,9 +1,15 @@
 .Add {
-    
+    justify-content: center;
 }
 
 .plus{
-    margin-left: 90px;
+    border: 1px solid black;
+    border-radius: 100%;
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    margin: 20px;
+    left: 50%;
 }
 
 form{

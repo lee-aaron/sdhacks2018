@@ -32,9 +32,7 @@ class Sidebar extends Component {
     render() {
 
         let a_links = [
-            [ "#archived", "Archived"],
-            [ "#blank", "Test"],
-            [ "#test", "Test 2"]
+            [ "#a", "Archived"]
         ].map((item, index) => this.unique_links(item[0], item[1], index));
 
         return (

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from '../../logo.jpg';
 import Search from '../Search/Search';
 import Sidebar from '../Sidebar/Sidebar';
@@ -22,121 +23,38 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            name: 'hello',
+            name: 'intern.demand',
             query: '',
-            apps_list: [
-                {
-                    name:'Google', 
-                    steps: [
-                        {
-                            name: "Phone Interview",
-                            date: "10-12-18",
-                            description: "I think the phone interview went well but then I missed the KDT problem"
-                        },
-                        {
-                            name: "Technical Interview",
-                            date: "10-25-18",
-                            description: "I missed the Two Sums problem on Leetcode"
-                        },
-                        {
-                            name: "Dummy",
-                            date: "Dummy Date",
-                            description: "Fill Description"
-                        }
-                    ],
-                    accepted: true,
-                    rejected: false
-                },
-                {
-                    name:'Apple', 
-                    steps: [
-                        {
-                            name: "Phone Interview",
-                            date: "10-12-18",
-                            description: "I think the phone interview went well but then I missed the KDT problem"
-                        },
-                        {
-                            name: "Technical Interview",
-                            date: "10-25-18",
-                            description: "I missed the Two Sums problem on Leetcode"
-                        },
-                        {
-                            name: "Dummy",
-                            date: "Dummy Date",
-                            description: "Fill Description"
-                        }
-                    ],
-                    accepted: false,
-                    rejected: false
-                },
-                {
-                    name:'AirBnB', 
-                    steps: [
-                        {
-                            name: "Phone Interview",
-                            date: "10-12-18",
-                            description: "I think the phone interview went well but then I missed the KDT problem"
-                        },
-                        {
-                            name: "Technical Interview",
-                            date: "10-25-18",
-                            description: "I missed the Two Sums problem on Leetcode"
-                        },
-                        {
-                            name: "Dummy",
-                            date: "Dummy Date",
-                            description: "Fill Description"
-                        }
-                    ],
-                    accepted: false,
-                    rejected: false
-                },
-                {
-                    name:'Lyft', 
-                    steps: [
-                        {
-                            name: "Phone Interview",
-                            date: "10-12-18",
-                            description: "I think the phone interview went well but then I missed the KDT problem"
-                        },
-                        {
-                            name: "Technical Interview",
-                            date: "10-25-18",
-                            description: "I missed the Two Sums problem on Leetcode"
-                        },
-                        {
-                            name: "Dummy",
-                            date: "Dummy Date",
-                            description: "Fill Description"
-                        }
-                    ],
-                    accepted: false,
-                    rejected: false
-                },
-                {
-                    name:'Google - Software Engineer Intern BS', 
-                    steps: [
-                        {
-                            name: "Phone Interview",
-                            date: "10-12-18",
-                            description: "I think the phone interview went well but then I missed the KDT problem"
-                        },
-                        {
-                            name: "Technical Interview",
-                            date: "10-25-18",
-                            description: "I missed the Two Sums problem on Leetcode"
-                        },
-                        {
-                            name: "Dummy",
-                            date: "Dummy Date",
-                            description: "Fill Description"
-                        }
-                    ],
-                    accepted: false,
-                    rejected: false
-                }
-            ]
+            apps_list: []
         }
+        this.intialize();
+    }
+
+    intialize() {
+        let port = process.env.PORT || 5000;
+        axios.get("http://localhost:" + port + "/api/company", {
+            params: {
+                user_id: "student"
+            }
+        })
+            .then(res => {
+                let array = Object.keys(res.data).map((key) => {
+                    return res.data[key];
+                })
+                array.forEach((item) => {
+                    if ( item.steps ) {
+                        let steps = Object.keys(item.steps).map((key) => {
+                            return item.steps[key];
+                        });
+                        item.steps = steps;
+                    }
+                })
+                this.setState({
+                    apps_list: array
+                });
+            }).catch(rejected => {
+                console.log(rejected);
+            });
     }
 
     handleInputChange = event => {
@@ -151,6 +69,13 @@ class Home extends Component {
         new_list[index] = updated_row;
         this.setState({
             apps_list: new_list
+        });
+        let port = process.env.PORT || 5000;
+        axios.post("http://localhost:" + port + "/api/offer", {
+            user_id: "student",
+            company_id: index,
+            accepted: updated_row.accepted,
+            rejected: updated_row.rejected
         });
     }
 
