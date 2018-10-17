@@ -67,7 +67,7 @@ app.post('/api/steps', (req, res) => {
 	var stepRef = ref.child(`users/${user_id}/company_status/${company_id}/steps`);
 	var newStepRef = stepRef.push();
 	newStepRef.set({
-		date,
+		date, 
 		name,
 		description
 	});
